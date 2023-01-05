@@ -1,0 +1,122 @@
+SLIP 1(SCATTER PLOT)
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+df = pd.read_csv("iris.csv")
+x = df["sepal.length"].values
+y = df["variety"].values
+plt.scatter(x,y)
+plt.show()
+
+SLIP 2(NULL)
+import pandas as pd
+data = pd.read_csv("Maths.csv")
+print(data)
+df = data.dropna(axis = 0, how = 'any', inplace = False)
+print(df)
+
+Slip 3(NUMERIC)
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import LabelEncoder
+from sklearn.impute import SimpleImputer
+df=pd.read_excel("simple_regression.xlsx") 
+x=df.iloc[:,:-1].values
+y=df["price"].values
+si=SimpleImputer(missing_values=np.nan,strategy="mean")
+si.fit(x[:,1:2])
+x[:,1:2]=si.fit_transform(x[:,1:2])
+print(x)
+
+SLIP 4(SIMPLE LINEAR)
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
+df = pd.read_excel('House.xlsx')
+x = df['Area'].values
+y = df['Price'].values
+xtr,xte,ytr,yte = train_test_split(x,y,test_size=0.2,random_state=1)
+xtr = xtr.reshape(-1,1) #Feature Skaling
+xte = xte.reshape(-1,1)
+ytr = ytr.reshape(-1,1)
+reg = LinearRegression()
+reg.fit(xtr,ytr)
+print("House Price of Area 8000 = ",reg.predict([[8000]]))
+plt.scatter(xtr,ytr,color="red")
+plt.title("Simple Linear Regression")
+plt.xlabel("Area in Sq/ft")
+plt.ylabel("Price")
+plt.plot(xtr,reg.predict(xtr),color="blue")
+plt.show()
+print("Accuracy of the Model = ",reg.score(xtr,ytr))
+
+SLIP 5(MULTIPLE LINEAR)
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+df = pd.read_excel('House.xlsx')
+x = df.iloc[:,:-1].values
+y = df['Price'].values
+xtr,xte,ytr,yte = train_test_split(x,y,test_size=0.2,random_state=1)
+reg = LinearRegression()
+reg.fit(xtr,ytr)
+print("House Price of Area 8000 = ",reg.predict([[8000,10,10]]))
+print("Accuracy of the Model = ",reg.score(xtr,ytr))
+
+SLIP 6(POLYNOMIAL LINEAR)
+import pandas as pd
+from sklearn .model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
+df=pd.read_excel("House.xlsx")
+x=df.iloc[:,:-1].values
+y=df['Price'].values
+xtr,xte,ytr,yte=train_test_split(x,y,test_size=0.2,random_state=1)
+poly=PolynomialFeatures(degree=3)
+x_poly=poly.fit_transform(xtr)
+reg=LinearRegression() 
+xtr=xtr.reshape(-1,1) 
+xte=xte.reshape(-1,1)
+reg.fit(x_poly,ytr)
+print(reg.score(x_poly, ytr))
+
+SLIP 7(NAIVE)
+import pandas as pd
+from sklearn.naive_bayes import
+GaussianNB df=pd.read_csv("area.csv")
+x=df.iloc[:,:-1].values 
+y=df["price"].values
+na=GaussianNB()
+na.fit(x,y)
+print("predict ",na.predict([[34500,5,22]]))
+print("Accuracy",na.score(x,y))
+
+SLIP 8(DECISION TREE)
+import pandas as pd
+from sklearn.tree import DecisionTreeRegressor
+df = pd.read_excel("Tennis.xlsx")
+x = df.iloc[:,:-1].values
+y = df['PlayTennis'].values
+dec_tree = DecisionTreeRegressor()
+dec_tree.fit(x,y)
+a=dec_tree.predict([[17,3,1,2,1]])
+if(a==0):
+    print ("Not play");
+else:
+    print("play")
+    
+SLIP 9(LINEAR SVM)
+import pandas as pd
+from sklearn.linear_model import LinearRegression 
+from sklearn.svm import SVR
+df=pd.read_xlsx("House.xlsx")
+x=df['area'].values
+y=df["price"].values 
+x=x.reshape(-1,1)
+y=y.reshape(-1,1) 
+sv=SVR(); 
+sv.fit(x,y)
+#print("Prediction of support vector
+machine is",sv.predict(([[5000,3,23]])))
+print("Accuracy is",sv.score(x,y))
